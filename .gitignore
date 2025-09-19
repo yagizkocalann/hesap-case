@@ -1,0 +1,6 @@
+node_modules
+reports/*.json
+playwright-report
+test-results
+.vscode
+.DS_Store
