@@ -13,8 +13,6 @@ class HomePage {
     this.individualCreditButton = this.page.getByTestId('homepage_header_container').getByRole('link', { name: 'İhtiyaç kredisi' });
     //this.individualCreditButton = page.locator('a[href="/kredi/ihtiyac-kredisi"]');
 
-
-    this.marketsNavLink = this.page.getByRole('link', { name: /Piyasalar/ });
   }
 
   async goto() {

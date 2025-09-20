@@ -4,8 +4,8 @@ Feature: Individual Credit
         Given I open the Hesap homepage
         When I close the opportunity pop-up on homepage
         When I dismiss the cookie banner on homepage
-        And I click the Individual Credit button from Credit Dropdown
-        And I fill the Value field which is 100.000
-        And I select the 36 month Period from Period dropdown
-        And I click the Hesap'la button
-        And I check the credit rate between 0 and 1.00
+        When I click the Individual Credit button from Credit Dropdown
+        When I fill the Value field which is 100.000
+        When I select the 36 month Period from Period dropdown
+        When I click the Hesap'la button
+        Then I check the credit rate between 0 and 1.00
