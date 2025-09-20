@@ -8,3 +8,4 @@ Feature: Individual Credit
         And I fill the Value field which is 100.000
         And I select the 36 month Period from Period dropdown
         And I click the Hesap'la button
+        And I check the credit rate between 0 and 1.00

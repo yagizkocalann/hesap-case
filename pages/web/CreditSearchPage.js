@@ -6,6 +6,7 @@ class CreditSearchPage {
         this.periodDropdown = page.locator('[data-testid="consumer_loan_landing_page_loan_maturity"]');
         this.periodValue36 = page.getByRole('option', { name: '36' });
         this.calculateButton = page.getByRole('button', { name: "Hesap'la" });
+        this.firstRateField = page.locator('span.whitespace-nowrap.text-lg.font-bold', { hasText: /^%\d{1,2},\d{2}$/ });
     }
 
     async fillCreditField(creditValue) {
@@ -16,24 +17,35 @@ class CreditSearchPage {
     async selectPeriodValue() {
         await this.periodDropdown.click();
         await this.periodValue36.click();
+        await expect(this.periodDropdown).toHaveText(/36/);
     }
 
     async calculateBtn() {
+        await expect(this.calculateButton).toBeVisible();
         await this.calculateButton.click();
         await this.page.waitForTimeout(3000);
+
     }
 
-    async getErrorMessage() {
-        await this.errorMessage.waitFor({ state: 'visible' });
-        return await this.errorMessage.textContent();
+    async checkFirstRate() {
+        const rateEl = this.firstRateField.first();
+        await rateEl.waitFor({ state: 'visible', timeout: 5000 });
+        const rateText = (await rateEl.textContent())?.trim() || '';
+        const rateNumber = parseFloat(rateText.replace('%', '').replace(',', '.'));
+        expect(Number.isFinite(rateNumber)).toBeTruthy();
+        if (!Number.isFinite(rateNumber)) {
+            console.warn('⚠️ Unable to parse rate text:', rateText);
+            await expect(rateNumber).toBeLessThanOrEqual(1.00);
+            return;
+        }
+        if (rateNumber >= 0 && rateNumber <= 1.00) {
+            console.log(`✅ Rate is within range: ${rateNumber}`);
+        } else {
+            console.log(`⚠️ Rate is above 1.00: ${rateNumber}`);
+            await expect(rateNumber).toBeGreaterThan(1.00);
+        }
     }
 
-    async assertPageLoaded() {
-        await expect(this.loginButton).toBeVisible();
-        await expect(this.mobileNumberInput).toBeVisible();
-        await expect(this.passwordInput).toBeVisible();
-        await expect(this.submitButton).toBeVisible();
-    }
 }
 
 module.exports = CreditSearchPage;

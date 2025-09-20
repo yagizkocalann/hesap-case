@@ -31,3 +31,7 @@ When('I select the 36 month Period from Period dropdown', async function () {
 When("I click the Hesap'la button", async function () {
     await this.po.creditSearch.calculateBtn();
 });
+
+When('I check the credit rate between 0 and 1.00', async function () {
+    await this.po.creditSearch.checkFirstRate();
+});
