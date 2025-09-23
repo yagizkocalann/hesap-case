@@ -1,9 +1,11 @@
 Feature: Individual Credit
 
-    Scenario: Search Credit
+    Background:
         Given I open the Hesap homepage
-        When I close the opportunity pop-up on homepage
-        When I dismiss the cookie banner on homepage
+        And I close the opportunity pop-up on homepage
+        And I dismiss the cookie banner on homepage
+
+    Scenario: Search Credit
         When I click the Individual Credit button from Credit Dropdown
         When I fill the Value field which is "<amount>"
         When I select the <period> month Period from Period dropdown
