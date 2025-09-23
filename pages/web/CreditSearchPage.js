@@ -4,7 +4,7 @@ class CreditSearchPage {
         this.page = page;
         this.creditField = page.getByTestId('consumer_loan_landing_page_loan_amount');
         this.periodDropdown = page.locator('[data-testid="consumer_loan_landing_page_loan_maturity"]');
-        this.periodValue36 = page.getByRole('option', { name: '36' });
+        this.periodOption = (p) => page.getByRole('option', { name: String(p) });
         this.calculateButton = page.getByRole('button', { name: "Hesap'la" });
         this.firstRateField = page.locator('span.whitespace-nowrap.text-lg.font-bold', { hasText: /^%\d{1,2},\d{2}$/ });
     }
@@ -14,10 +14,9 @@ class CreditSearchPage {
         await this.creditField.fill(creditValue);
     }
 
-    async selectPeriodValue() {
+    async selectPeriodValue(period) {
         await this.periodDropdown.click();
-        await this.periodValue36.click();
-        await expect(this.periodDropdown).toHaveText(/36/);
+        await this.periodOption(period).click();
     }
 
     async calculateBtn() {

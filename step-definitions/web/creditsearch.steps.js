@@ -20,12 +20,13 @@ When('I click the Individual Credit button from Credit Dropdown', async function
     await this.po.home.individualCreditBtn();
 });
 
-When('I fill the Value field which is 100.000', async function () {
-    await this.po.creditSearch.fillCreditField('100000');
+When('I fill the Value field which is {string}', async function (amount) {
+    const normalized = String(amount).replace(/[^0-9]/g, '');
+    await this.po.creditSearch.fillCreditField(normalized);
 });
 
-When('I select the 36 month Period from Period dropdown', async function () {
-    await this.po.creditSearch.selectPeriodValue();
+When('I select the {int} month Period from Period dropdown', async function (period) {
+    await this.po.creditSearch.selectPeriodValue(period);
 });
 
 When("I click the Hesap'la button", async function () {
