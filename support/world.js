@@ -1,6 +1,7 @@
 const { setWorldConstructor } = require('@cucumber/cucumber');
 const HomePage = require('../pages/web/HomePage');
 const CreditSearchPage = require('../pages/web/CreditSearchPage');
+const HomeDepositWidgetPage = require('../pages/web/HomeDepositWidgetPage');
 
 class CustomWorld {
   constructor() {
@@ -30,6 +31,7 @@ class CustomWorld {
     this.po = {
       home: new HomePage(this.page),
       creditSearch: new CreditSearchPage(this.page),
+      homeDeposit: new HomeDepositWidgetPage(this.page),
     };
   }
 
